@@ -1,5 +1,5 @@
 {
-    "name": "",
+    "name": "the_lost_ashes",
     "private": true,
     "scripts": {
         "postinstall": "node scripts/install.js",

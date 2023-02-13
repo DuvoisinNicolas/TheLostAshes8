@@ -26,7 +26,6 @@ export class GameMode {
 
         // Register event listeners for dota engine events
         ListenToGameEvent("game_rules_state_change", () => this.OnStateChange(), undefined);
-        ListenToGameEvent("npc_spawned", event => this.OnNpcSpawned(event), undefined);
 
         // Register event listeners for events from the UI
         CustomGameEventManager.RegisterListener("ui_panel_closed", (_, data) => {
@@ -49,7 +48,7 @@ export class GameMode {
 
     private configure(): void {
         GameRules.SetCustomGameTeamMaxPlayers(DotaTeam.GOODGUYS, 3);
-        GameRules.SetCustomGameTeamMaxPlayers(DotaTeam.BADGUYS, 3);
+        GameRules.SetCustomGameTeamMaxPlayers(DotaTeam.BADGUYS, 0);
 
         GameRules.SetShowcaseTime(0);
         GameRules.SetHeroSelectionTime(heroSelectionTime);
@@ -60,9 +59,7 @@ export class GameMode {
 
         // Add 4 bots to lobby in tools
         if (IsInToolsMode() && state == GameState.CUSTOM_GAME_SETUP) {
-            for (let i = 0; i < 4; i++) {
-                Tutorial.AddBot("npc_dota_hero_lina", "", "", false);
-            }
+            Tutorial.AddBot("npc_dota_hero_lina", "", "", false);
         }
 
         if (state === GameState.CUSTOM_GAME_SETUP) {
@@ -93,15 +90,4 @@ export class GameMode {
         // Do some stuff here
     }
 
-    private OnNpcSpawned(event: NpcSpawnedEvent) {
-        // After a hero unit spawns, apply modifier_panic for 8 seconds
-        const unit = EntIndexToHScript(event.entindex) as CDOTA_BaseNPC; // Cast to npc since this is the 'npc_spawned' event
-        // Give all real heroes (not illusions) the meepo_earthbind_ts_example spell
-        if (unit.IsRealHero()) {
-            if (!unit.HasAbility("meepo_earthbind_ts_example")) {
-                // Add lua ability to the unit
-                unit.AddAbility("meepo_earthbind_ts_example");
-            }
-        }
-    }
 }
