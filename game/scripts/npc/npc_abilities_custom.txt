@@ -79,7 +79,102 @@
 				"blast_dot_damage"		"15 30 40 50"
 			}
 			
+			"07"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"skeleton_count"		"2 4 6 8"
+			}
+
+			"08"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"skeleton_duration"		"5.0"
+			}
+
+			"09"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"hp_ratio"				"0.1"
+			}
+
+			"10"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"attack_ratio"			"0.1"
+			}
 			
+		}
+	}
+
+	"my_skeleton_king_mortal_strike"
+	{
+		"BaseClass" 	"ability_lua"
+		"AbilityTextureName" "skeleton_king_mortal_strike"
+		"ScriptFile" 	"abilities/heroes/skeleton_king/my_skeleton_king_mortal_strike"
+
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO"
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"crit_mult"					"150 200 250 300"
+			}
+			"02"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"crit_chance"				"100"
+			}
+			
+			"03"
+			{
+				"var_type"					"FIELD_FLOAT"
+				"skeleton_duration"			"5.0"
+			}
+			
+			"04"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"hp_ratio"				"0.1"
+			}
+
+			"05"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"attack_ratio"			"0.1"
+			}
+		}
+	}
+
+	"my_skeleton_king_skeleton_strength"
+	{
+		"BaseClass" 	"ability_lua"
+		"AbilityTextureName" "my_skeleton_king_skeleton_strength"
+		"ScriptFile" 	"abilities/heroes/skeleton_king/my_skeleton_king_skeleton_strength"
+		"MaxLevel"				"1"
+
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ALLIES"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO"
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"bonus_strength"			"1 2 3 4"
+			}
 		}
 	}
 }
