@@ -88,7 +88,7 @@
 			"08"
 			{
 				"var_type"				"FIELD_FLOAT"
-				"skeleton_duration"		"5.0"
+				"skeleton_duration"		"1.0"
 			}
 
 			"09"
@@ -111,6 +111,9 @@
 		"BaseClass" 	"ability_lua"
 		"AbilityTextureName" "skeleton_king_mortal_strike"
 		"ScriptFile" 	"abilities/heroes/skeleton_king/my_skeleton_king_mortal_strike"
+
+		"AbilityType"					"DOTA_ABILITY_TYPE_BASIC"
+		"MaxLevel"						"1"
 
 		// General
 		//-------------------------------------------------------------------------------------------------------------
@@ -174,6 +177,12 @@
 			{
 				"var_type"					"FIELD_INTEGER"
 				"bonus_strength"			"1 2 3 4"
+			}
+			
+			"02"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"max_stacks"				"3"
 			}
 		}
 	}
