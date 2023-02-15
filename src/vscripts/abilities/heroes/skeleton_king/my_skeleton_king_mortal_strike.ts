@@ -47,7 +47,7 @@ export class modifier_my_skeleton_king_mortal_strike extends BaseModifier {
     
             let hp = hp_ratio * caster.GetMaxHealth()
             let attack = attack_ratio * caster.GetAttackDamage()
-
+            
             let summoned_unit = CreateUnitByName(
                 unitName,
                 caster.GetOrigin(),

@@ -113,7 +113,6 @@
 		"ScriptFile" 	"abilities/heroes/skeleton_king/my_skeleton_king_mortal_strike"
 
 		"AbilityType"					"DOTA_ABILITY_TYPE_BASIC"
-		"MaxLevel"						"1"
 
 		// General
 		//-------------------------------------------------------------------------------------------------------------
