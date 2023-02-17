@@ -17,9 +17,24 @@
                 <Label id="TimeBeforeNextWave"/>
             </Panel>
         </snippet>
+
+        <snippet name="ArtifactPickers">
+            <Panel class="ArtifactPickers" hittest="false">
+                <Panel class="ArtifactPicker" hittest="false">
+                    <Label id="Artifact_Name1"/>
+                </Panel>
+                <Panel class="ArtifactPicker" hittest="false">
+                    <Label id="Artifact_Name2"/>
+                </Panel>
+                <Panel  class="ArtifactPicker" hittest="false">
+                    <Label id="Artifact_Name3"/>
+                </Panel>
+            </Panel>
+        </snippet>
     </snippets>
 
     <Panel hittest="false" class="MainHud">
         <Panel id="GameProgressionPanel"/>
+        <Panel id="ArtifactPickersPanel"/>
     </Panel>
 </root>

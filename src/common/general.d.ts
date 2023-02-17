@@ -13,3 +13,11 @@ interface UnitData {
     name: string,
     level: number
 }
+
+interface IArtifact {
+    name: string;
+    modifier_name: string;
+    image: string;
+    rarity: number;
+    canHaveMultiple: boolean;
+}
