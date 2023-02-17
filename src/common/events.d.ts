@@ -15,8 +15,9 @@
 interface CustomGameEventDeclarations {
     example_event: ExampleEventData,
     ui_panel_closed: UIPanelClosedEventData
+    waveTimerEvent: WaveTimerEventData
+    waveStartedEvent: WaveStartedEventData
 }
-
 // Define the type of data sent by the example_event event
 interface ExampleEventData {
     myNumber: number;
@@ -27,3 +28,13 @@ interface ExampleEventData {
 
 // This event has no data
 interface UIPanelClosedEventData {}
+
+interface WaveTimerEventData {
+    waveNumber: number;
+    remainingTime: number | undefined;
+}
+
+interface WaveStartedEventData {
+    waveNumber: number;
+    remainingEnnemies: number;
+}

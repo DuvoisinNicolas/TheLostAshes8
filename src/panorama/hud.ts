@@ -1,45 +1,51 @@
-$.Msg("Hud panorama loaded");
 
-function OnCloseButtonClicked() {
-    $.Msg("Example close button clicked");
 
-    // Find panel by id
-    const examplePanel = $("#ExamplePanel");
-
-    // Remove panel
-    examplePanel.DeleteAsync(0);
-
-    // Send event to server
-    GameEvents.SendCustomGameEventToServer("ui_panel_closed", {});
-}
-
-GameEvents.Subscribe("example_event", (data: NetworkedData<ExampleEventData>) => {
-    const myNumber = data.myNumber;
-    const myString = data.myString;
-
-    const myBoolean = data.myBoolean; // After sending to client this is now type 0 | 1!
-
-    const myArrayObject = data.myArrayOfNumbers; // After sending this is now an object!
-
-    const myArray = toArray(myArrayObject); // We can turn it back into an array ourselves.
-
-    $.Msg("Received example event", myNumber, myString, myBoolean, myArrayObject, myArray);
-
-});
-
-/**
- * Turn a table object into an array.
- * @param obj The object to transform to an array.
- * @returns An array with items of the value type of the original object.
- */
-function toArray<T>(obj: Record<number, T>): T[] {
-    const result = [];
+class GameProgression {
+    // Instance variables
+    parent: Panel;
+    waveCounterItem: LabelPanel;
+    timeBeforeNextWave: LabelPanel;
     
-    let key = 1;
-    while (obj[key]) {
-        result.push(obj[key]);
-        key++;
+
+    // ExampleUI constructor
+    constructor(parent: Panel, waveCounter: string, timeBeforeNextWave: string) {
+        this.parent = parent;
+
+        // Load snippet into panel
+        parent.BLoadLayoutSnippet("GameProgression");
+        
+        this.waveCounterItem = parent.FindChildTraverse("WaveCounter") as LabelPanel;
+        this.timeBeforeNextWave = parent.FindChildTraverse("TimeBeforeNextWave") as LabelPanel
+
+        this.waveCounterItem.text = waveCounter;
+        this.timeBeforeNextWave.text = timeBeforeNextWave;
+        
+        GameEvents.Subscribe<WaveTimerEventData>("waveTimerEvent", (event) => this.OnTimerChanged(event));
+        GameEvents.Subscribe<WaveStartedEventData>("waveStartedEvent", (event) => this.OnEnnemyCounterChanged(event));
     }
 
-    return result;
+    OnTimerChanged(event:WaveTimerEventData) {
+        this.waveCounterItem.text = "Wave " + (event.waveNumber+1);
+        this.timeBeforeNextWave.text = "Starting in: " + event.remainingTime;
+    }
+
+    OnEnnemyCounterChanged(event: WaveStartedEventData){
+        this.waveCounterItem.text = "Wave " + (event.waveNumber+1);
+        this.timeBeforeNextWave.text = "Remaining: " + event.remainingEnnemies;
+    }
+
+
 }
+
+class ExampleUI {
+    // Instance variables
+    panel: Panel;
+
+    // ExampleUI constructor
+    constructor(panel: Panel) {
+        this.panel = panel;
+        const container = panel.FindChild("GameProgressionPanel")!
+        const progression = new GameProgression(container, "Wave 1", "Starting in: 30");  
+    }
+}
+let ui = new ExampleUI($.GetContextPanel());

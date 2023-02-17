@@ -2,6 +2,7 @@ import { reloadable } from "./lib/tstl-utils";
 import { modifier_panic } from "./modifiers/modifier_panic";
 
 const heroSelectionTime = 20;
+const timeBetweenWaves = 10;
 
 declare global {
     interface CDOTAGameRules {
@@ -36,7 +37,6 @@ const waves = [
     ]
 ]
 const maxWaveNumber = waves.length
-let currentWave = 0
 
 function handleRewards(currentWave: number){
     let rand = Math.floor(math.random() * Object.keys(waves_rewards[currentWave]).length)
@@ -93,9 +93,27 @@ function handleVictory(){
 
 function handleWavesSpawning(waveNumber: number) {
     let rand = Math.floor(math.random() * Object.keys(waves[waveNumber]).length)
+    let currentSecondCount = timeBetweenWaves;
     // TODO: Attendre que les joueurs cliquent sur prêt, ou après 30s
     // en attendant, après 3 secondes:
-    Timers.CreateTimer(3, () => {
+    Timers.CreateTimer(0,() => {
+        // Si le timer n'est pas terminé, on actualise l'affichage
+        if (currentSecondCount > 0){
+            CustomGameEventManager.Send_ServerToTeam(
+                DotaTeam.GOODGUYS, 
+                "waveTimerEvent", 
+                {
+                    waveNumber: waveNumber, 
+                    remainingTime: currentSecondCount 
+                }
+            )
+            currentSecondCount -= 1;
+            return 1
+        }
+        // Sinon, on quitte (et on lance la wave)
+    });
+
+    Timers.CreateTimer(timeBetweenWaves, () => {
         let nbUnitsSpawned = waves[waveNumber][rand].length
         let nbUnitsKilled = 0
         // Pour chaque ennemi dans le tableau choisi aléatoirement,
@@ -115,23 +133,42 @@ function handleWavesSpawning(waveNumber: number) {
                 if (entindex == event.entindex_killed){
                     nbUnitsKilled += 1
                     //print("One ennemy died. Remaining:", nbUnitsSpawned-nbUnitsKilled);
+                        // Updating timer event into ennemy counter
+                    CustomGameEventManager.Send_ServerToTeam(
+                        DotaTeam.GOODGUYS, 
+                        "waveStartedEvent", 
+                        {
+                            waveNumber: waveNumber, 
+                            remainingEnnemies: nbUnitsSpawned - nbUnitsKilled 
+                        }
+                    )
                         
                     if (nbUnitsKilled == nbUnitsSpawned){
-                        handleRewards(currentWave)
-                        currentWave += 1;
-                        if (maxWaveNumber == currentWave){
+                        handleRewards(waveNumber)
+                        waveNumber += 1;
+                        if (maxWaveNumber == waveNumber){
                             handleVictory();
                         }
                         else{
                             //print("Wave done ! Trying to start wave ", currentWave)
-                            handleWavesSpawning(currentWave)
+                            handleWavesSpawning(waveNumber)
                         }
                     }
                 }
             }, undefined)
         }
+        // Updating timer event into ennemy counter
+        CustomGameEventManager.Send_ServerToTeam(
+            DotaTeam.GOODGUYS, 
+            "waveStartedEvent", 
+            {
+                waveNumber: waveNumber, 
+                remainingEnnemies: nbUnitsSpawned 
+            }
+        )
     });
 }
+
 
 
 
@@ -190,6 +227,7 @@ export class GameMode {
         print("Game starting!");
         let waveNumber = 0;
         // Spawn first wave
+        
         handleWavesSpawning(waveNumber);
     }
     
