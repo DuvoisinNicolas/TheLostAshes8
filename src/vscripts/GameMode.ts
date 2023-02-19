@@ -83,18 +83,18 @@ class Artifact implements IArtifact {
 }
 
 const artifacts = [
-    new Artifact("TestName1", "modifier_my_banana", "Ceci est une description très longue qui explique que en gros tu va gagner un effet qui va tranformer tout les arbres autour de toi en chaussure. Ne fonctionne pas sur treant, ni sur les arbres qui sont nés entre 1999 et 2014.", "tstl.png", 1, true, undefined),
-    new Artifact("TestName2", "modifier_my_banana", "test_desc2", "tstl.png", 1, true, undefined ),
-    new Artifact("TestName3", "modifier_my_banana", "test_desc3", "tstl.png", 1, true, undefined),
-    new Artifact("TestName4", "modifier_my_banana", "test_desc4", "tstl.png", 2, true, undefined),
-    new Artifact("TestName5", "modifier_my_banana", "test_desc5", "tstl.png", 2, true, undefined),
-    new Artifact("TestName6", "modifier_my_banana", "test_desc6", "tstl.png", 3, true, undefined),
-    new Artifact("TestName7", "modifier_my_banana", "test_desc7", "tstl.png", 4, true, undefined),
+    new Artifact("Banana", "modifier_my_banana", "Ceci est une description très longue qui explique que en gros tu va gagner un effet qui va tranformer tout les arbres autour de toi en chaussure. Ne fonctionne pas sur treant, ni sur les arbres qui sont nés entre 1999 et 2014.", "tstl.png", 1, true, undefined),
+    new Artifact("Banana", "modifier_my_banana", "test_desc2", "banana.png", 1, true, undefined),
+    new Artifact("Banana", "modifier_my_banana", "test_desc3", "banana.png", 1, true, undefined),
+    new Artifact("Banana", "modifier_my_banana", "test_desc4", "banana.png", 2, true, undefined),
+    new Artifact("Banana", "modifier_my_banana", "test_desc5", "banana.png", 2, true, undefined),
+    new Artifact("Banana", "modifier_my_banana", "test_desc6", "banana.png", 3, true, undefined),
+    new Artifact("Banana", "modifier_my_banana", "test_desc7", "banana.png", 4, true, undefined),
 ]
 
 
 
-// Rarity from 1 to 5, 0 is no relic
+// Rarity from 1 to 5, 0 is no artifact
 const waves = [
     new Wave(
         0,
@@ -211,8 +211,21 @@ function addArtifactToPlayer (artifact: IArtifact, playerID: PlayerID){
     print("adding", artifact.modifier_name, "to", hero.GetName());
     // Load modifier into memory (seems to work even if called multiple times)
     LinkLuaModifier(artifact.modifier_name, "modifiers/artifacts/" + artifact.modifier_name, LuaModifierMotionType.NONE);
-    hero.AddNewModifier(hero, undefined, artifact.modifier_name,undefined);
-    print("modifier added to", hero)
+    
+    if (!hero.HasModifier(artifact.modifier_name)){
+        // If hero doesn't have modifier, add it
+        hero.AddNewModifier(hero, undefined, artifact.modifier_name, undefined);
+        print("modifier added to", hero)
+    }
+    else if (artifact.canHaveMultiple){
+        // If he already has it AND this modifier is stackable, increment counter 
+        hero.FindModifierByName(artifact.modifier_name)?.IncrementStackCount()
+        print("modifier incremented on", hero)
+    }
+    else{
+        print("ERROR !!! MODIFIER IS NOT STACKABLE...")
+    }
+
 }
 
 let players: [PlayerID, CDOTAPlayerController][] = [];

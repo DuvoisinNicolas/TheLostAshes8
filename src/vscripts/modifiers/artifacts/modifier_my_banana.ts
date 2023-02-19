@@ -15,17 +15,29 @@ export class modifier_my_banana extends BaseModifier {
     IsPurgable(): boolean {
         return true;
     }
+
+    RemoveOnDeath(): boolean{
+        return false;
+    }
+
+    IsPermanent(): boolean{
+        return true;
+    }
+
+
     OnCreated(): void {     
         print("created")
+        this.SetStackCount(1)
     }
 
     DeclareFunctions(): ModifierFunction[] {
         return [
-            ModifierFunction.ATTACKSPEED_REDUCTION_PERCENTAGE
+            ModifierFunction.BASEATTACK_BONUSDAMAGE,
+            ModifierFunction.ON_MODIFIER_ADDED
         ]
-    }  
+    }
 
     GetModifierBaseAttack_BonusDamage(): number {
-        return this.bonusDamages;
+        return this.bonusDamages * this.GetStackCount();
     }
 }

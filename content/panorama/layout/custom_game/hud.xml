@@ -39,8 +39,8 @@
         </snippet>
     </snippets>
 
-    <Panel class="MainHud">
-        <Panel id="GameProgressionPanel"/>
-        <Panel id="ArtifactPickersPanel"/>
+    <Panel class="MainHud" hittest="false">
+        <Panel id="GameProgressionPanel" hittest="false"/>
+        <Panel id="ArtifactPickersPanel" hittest="false"/>
     </Panel>
 </root>

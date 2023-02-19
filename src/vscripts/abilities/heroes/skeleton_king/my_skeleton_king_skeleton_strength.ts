@@ -4,7 +4,6 @@ import { registerAbility, BaseAbility, registerModifier, BaseModifier } from "..
 export class modifier_my_skeleton_king_skeleton_strength extends BaseModifier {
 
     bonus_strength = 0
-    stack_count = 0
     max_stacks = 0
 
     IsHidden(){
@@ -23,27 +22,26 @@ export class modifier_my_skeleton_king_skeleton_strength extends BaseModifier {
         const ability = this.GetAbility()!;
         this.bonus_strength = ability.GetSpecialValueFor("bonus_strength")
         this.max_stacks = ability.GetSpecialValueFor("max_stacks")
-        print(this.bonus_strength);
     }
 
     DeclareFunctions(): ModifierFunction[] {
         return [
             ModifierFunction.ON_DEATH,
-            ModifierFunction.EXTRA_STRENGTH_BONUS
+            ModifierFunction.EXTRA_STRENGTH_BONUS,
         ]
     }
 
     OnDeath(event: ModifierInstanceEvent): void {
+        // +1 if a skeleton dies near
         if (event.unit.GetUnitName() == "npc_my_dota_wraith_king_skeleton_warrior"){
-            if (this.stack_count != this.max_stacks){
-                this.stack_count += 1
-                this.SetStackCount(this.stack_count)
+            if (this.GetStackCount() != this.max_stacks){
+                this.SetStackCount(this.GetStackCount()+1)
             }
         }
     }
 
     GetModifierExtraStrengthBonus(): number {
-        return this.stack_count * this.bonus_strength
+        return this.GetStackCount() * this.bonus_strength
     }
     
 }

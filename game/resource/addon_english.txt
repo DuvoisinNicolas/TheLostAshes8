@@ -1,0 +1,23 @@
+"lang"
+{
+    "Language"    "english"
+    "Tokens"
+    {
+        "DOTA_Tooltip_Ability_my_skeleton_king_hellfire_blast"    "Skeleton Fire blast"
+        "DOTA_Tooltip_Ability_my_skeleton_king_hellfire_blast_description"    "Fires a skull that stuns the target for %blast_stun_duration% seconds and deals damages.
+ Also spawns %skeleton_count% skeleton near the target.
+ Skeletons lasts for %skeleton_duration% seconds, and they have %hp_ratio% times your hp, and %attack_ratio% times your damages."
+        "DOTA_Tooltip_Ability_my_skeleton_king_mortal_strike"    "Skeleton King Strike"
+        "DOTA_Tooltip_Ability_my_skeleton_king_mortal_strike_description"    "Your attacks have %crit_chance%%% chances to crit for %crit_mult%%% damages. 
+ Also spawns a skeleton each time you crit. 
+ Skeletons lasts for %skeleton_duration% seconds, and they have %hp_ratio% times your hp, and %attack_ratio% times your damages."
+        "DOTA_Tooltip_Ability_my_skeleton_king_skeleton_strength"    "Skeleton Strength"
+        "DOTA_Tooltip_Ability_my_skeleton_king_skeleton_strength_description"    "Whenever one of your skeleton dives, you get a stack.
+ Each stack grants you %bonus_strength% bonus strength.
+ You can stack up to %max_stacks%."
+        "DOTA_Tooltip_modifier_my_banana"    "Banana"
+        "DOTA_Tooltip_modifier_my_banana_description"    "+%dMODIFIER_PROPERTY_BASEATTACK_BONUSDAMAGE% Base Damage."
+        "DOTA_Tooltip_modifier_my_skeleton_king_skeleton_strength"    "Skeleton Strength"
+        "DOTA_Tooltip_modifier_my_skeleton_king_skeleton_strength_description"    "Currently grants you +%dMODIFIER_PROPERTY_EXTRA_STRENGTH_BONUS% bonus strength."
+    }
+}
