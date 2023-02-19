@@ -15,9 +15,22 @@ interface UnitData {
 }
 
 interface IArtifact {
+    id: number;
     name: string;
     modifier_name: string;
+    description: string;
     image: string;
     rarity: number;
     canHaveMultiple: boolean;
+}
+
+interface IWave {
+    waveId: number,
+    waveLevel: number,
+    ennemies: string[],
+    eventsToThrow: string[],
+    expReward: number,
+    goldReward: number,
+    relicRarity: number, // -1 for none
+    itemsReward: string[]
 }

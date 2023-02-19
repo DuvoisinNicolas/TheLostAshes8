@@ -17,6 +17,8 @@ interface CustomGameEventDeclarations {
     ui_panel_closed: UIPanelClosedEventData
     waveTimerEvent: WaveTimerEventData
     waveStartedEvent: WaveStartedEventData
+    heroArtifactPickingEvent: HeroArtefactPickingEventData
+    heroArtifactPickedEvent: HeroArtefactPickedEventData
 }
 // Define the type of data sent by the example_event event
 interface ExampleEventData {
@@ -37,4 +39,16 @@ interface WaveTimerEventData {
 interface WaveStartedEventData {
     waveNumber: number;
     remainingEnnemies: number;
+}
+
+interface HeroArtefactPickingEventData{
+    hero: PlayerID;
+    artifact1: IArtifact;
+    artifact2: IArtifact;
+    artifact3: IArtifact;
+}
+
+interface HeroArtefactPickedEventData{
+    player: PlayerID
+    artifact: IArtifact
 }

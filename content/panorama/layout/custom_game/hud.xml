@@ -19,21 +19,27 @@
         </snippet>
 
         <snippet name="ArtifactPickers">
-            <Panel class="ArtifactPickers" hittest="false">
-                <Panel class="ArtifactPicker" hittest="false">
-                    <Label id="Artifact_Name1"/>
+            <Panel class="ArtifactPickers">
+                <Panel class="ArtifactPicker">
+                    <Label class="Artefact_Name" id="Artifact_Name1"/>
+                    <Image class="Artefact_Image" id="Artifact_Image1"/>
+                    <Label class="Artefact_Description" id="Artifact_Description1"/>
                 </Panel>
-                <Panel class="ArtifactPicker" hittest="false">
-                    <Label id="Artifact_Name2"/>
+                <Panel class="ArtifactPicker">
+                    <Label class="Artefact_Name" id="Artifact_Name2"/>
+                    <Image class="Artefact_Image" id="Artifact_Image2"/>
+                    <Label class="Artefact_Description" id="Artifact_Description2"/>
                 </Panel>
-                <Panel  class="ArtifactPicker" hittest="false">
-                    <Label id="Artifact_Name3"/>
+                <Panel class="ArtifactPicker">
+                    <Label class="Artefact_Name" id="Artifact_Name3"/>
+                    <Image class="Artefact_Image" id="Artifact_Image3"/>
+                    <Label class="Artefact_Description" id="Artifact_Description3"/>
                 </Panel>
             </Panel>
         </snippet>
     </snippets>
 
-    <Panel hittest="false" class="MainHud">
+    <Panel class="MainHud">
         <Panel id="GameProgressionPanel"/>
         <Panel id="ArtifactPickersPanel"/>
     </Panel>
